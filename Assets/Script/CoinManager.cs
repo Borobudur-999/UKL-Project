@@ -6,15 +6,23 @@ public class CoinManager : MonoBehaviour
     public int coins;
     public TextMeshProUGUI coinText;
 
-    public void AddCoin(int amount)
+    void Start()
     {
-        coins += amount;
+        // Load coin kalau ada
+        coins = PlayerPrefs.GetInt("Coins", 0);
         UpdateUI();
     }
 
-    void Start()
+    public void AddCoin(int amount)
     {
+        coins += amount;
+        PlayerPrefs.SetInt("Coins", coins);  // langsung save
         UpdateUI();
+    }
+
+    public void ResetCoinOnExit()
+    {
+        PlayerPrefs.SetInt("Coins", 0);
     }
 
     void UpdateUI()
