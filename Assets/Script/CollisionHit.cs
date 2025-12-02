@@ -32,8 +32,7 @@ public class CollisionHit : MonoBehaviour
 
         // destroy obstacle
         Destroy(collision.gameObject);
-        Debug.Log(collision.gameObject.layer);
-        
+
         // bounce effect
         _rb.velocity = new Vector2(_rb.velocity.x, 0);
         _rb.AddForce(Vector2.up * _boundForce, ForceMode2D.Impulse);
