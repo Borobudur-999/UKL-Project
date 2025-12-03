@@ -7,6 +7,7 @@ public class GridBlockGenerator : MonoBehaviour
     [Header("Prefabs")]
     public GameObject stonePrefab;
     public GameObject[] orePrefabs;   // 0 = copper, 1 = iron, 2 = gold, dll
+    public GameObject borderPrefab;   // ⬅ tambahkan ini
 
     [Header("Grid Settings")]
     public int blocksPerRow = 5;
@@ -38,6 +39,7 @@ public class GridBlockGenerator : MonoBehaviour
 
         for (int r = 0; r < rows; r++)
         {
+            // Spawn blok per baris
             for (int i = 0; i < blocksPerRow; i++)
             {
                 Vector3 spawnPos = new Vector3(
@@ -50,9 +52,19 @@ public class GridBlockGenerator : MonoBehaviour
                 Instantiate(blockToSpawn, spawnPos, Quaternion.identity);
             }
 
+            // ⭐ Spawn border kiri
+            Vector3 leftBorderPos = new Vector3(xMin - 1f, nextSpawnY, 0);
+            Instantiate(borderPrefab, leftBorderPos, Quaternion.identity);
+
+            // ⭐ Spawn border kanan
+            Vector3 rightBorderPos = new Vector3(xMax + 1f, nextSpawnY, 0);
+            Instantiate(borderPrefab, rightBorderPos, Quaternion.identity);
+
             nextSpawnY -= yStep;
         }
     }
+
+
 
     GameObject ChooseBlock(float y)
     {

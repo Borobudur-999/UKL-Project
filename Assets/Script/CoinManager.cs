@@ -7,31 +7,42 @@ public class CoinManager : MonoBehaviour
     public int coins;
     public TextMeshProUGUI coinText;
 
-void Start()
-{
-    // Pastikan UI text di scene baru terhubung
-    coinText = GameObject.FindWithTag("CoinText")?.GetComponent<TextMeshProUGUI>();
-    UpdateUI();
-}
+    void Start()
+    {
+        // Pastikan UI text di scene baru terhubung
+        coinText = GameObject.FindWithTag("CoinText")?.GetComponent<TextMeshProUGUI>();
+        UpdateUI();
+    }
 
     void Awake()
-{
-    Debug.Log("CoinManager Awake: " + gameObject.name);
-
-    if (instance == null)
     {
-        instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
-    else
-    {
-        Debug.Log("Duplicate CoinManager found → destroyed");
-        Destroy(gameObject);
-        return;
+        Debug.Log("CoinManager Awake: " + gameObject.name);
+
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Debug.Log("Duplicate CoinManager found → destroyed");
+            Destroy(gameObject);
+            return;
+        }
+
+        LoadCoins();
     }
 
-    LoadCoins();
-}
+    public bool SpendCoin(int amount)
+    {
+        if (coins < amount)
+            return false;
+
+        coins -= amount;
+        SaveCoins();
+        UpdateUI();
+        return true;
+    }
 
 
     public void AddCoin(int amount)
