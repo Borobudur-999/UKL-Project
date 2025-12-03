@@ -6,8 +6,17 @@ public class MiningSystem : MonoBehaviour
 
     public void MineBlock(Vector2 position)
     {
+        // Cek durability sebelum mining
+        if (!pickManager.CanMine())
+        {
+            Debug.Log("Pickaxe sudah rusak!");
+            return;
+        }
+
         var pick = pickManager.Current;
         float radius = pick.radius;
+
+        bool hitAnything = false; // track apakah ada block yang kena
 
         // Hancurkan blok dalam radius lingkaran
         for (float x = -radius; x <= radius; x++)
@@ -18,17 +27,44 @@ public class MiningSystem : MonoBehaviour
 
                 if (Vector2.Distance(position, target) <= radius)
                 {
-                    DestroyBlockAt(target);
+                    // jika ada block yang kena hit
+                    if (DestroyBlockAt(target))
+                    {
+                        hitAnything = true;
+                    }
                 }
             }
         }
 
-        pickManager.ReduceDurability(1);
+        // kalau beneran mukul block, baru kurangi durability
+        if (hitAnything)
+        {
+            pickManager.ReduceDurability(1);
+        }
     }
 
-    void DestroyBlockAt(Vector2 pos)
+    // return true = block kena hit
+    bool DestroyBlockAt(Vector2 pos)
     {
-        // logika hancurin block sesuai sistem kamu
-        Debug.Log($"Destroy block at {pos}");
+        Collider2D hit = Physics2D.OverlapCircle(pos, 0.25f);
+
+        if (hit == null) return false;
+
+        OreBlock block = hit.GetComponent<OreBlock>();
+        if (block == null) return false;
+
+        var pick = pickManager.Current;
+
+        // cek damage
+        if (pick.damage < block.maxHP)
+        {
+            Debug.Log("Pickaxe terlalu lemah untuk ore ini!");
+            return false;
+        }
+
+        // serang block
+        block.Hit(pick.damage);
+
+        return true;
     }
 }

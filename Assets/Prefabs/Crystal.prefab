@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6159694792153984}
   - component: {fileID: 224337419961736675}
   - component: {fileID: 5552603852512084786}
+  - component: {fileID: 4567444891590996255}
   m_Layer: 11
   m_Name: Crystal
   m_TagString: Obstacle
@@ -130,3 +131,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &4567444891590996255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4741952674251302388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a061e9b93f23794580ff135c0a6979a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 120
+  coinReward: 0
