@@ -17,4 +17,4 @@ MonoBehaviour:
   damage: 1
   radius: 1
   maxDurability: 100
-  upgradeCost: 0
+  upgradeCost: 3
