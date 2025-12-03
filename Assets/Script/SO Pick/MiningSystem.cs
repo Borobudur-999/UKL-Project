@@ -12,69 +12,65 @@ public class MiningSystem : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        // Cek durability sebelum mining
+        if (!pickManager.CanMine())
         {
-            MineBlocks();
+            Debug.Log("Pickaxe sudah rusak!");
+            return;
+        }
+
+        var pick = pickManager.Current;
+        float radius = pick.radius;
+
+        bool hitAnything = false; // track apakah ada block yang kena
+
+        // Hancurkan blok dalam radius lingkaran
+        for (float x = -radius; x <= radius; x++)
+        {
+            for (float y = -radius; y <= radius; y++)
+            {
+                Vector2 target = position + new Vector2(x, y);
+
+                if (Vector2.Distance(position, target) <= radius)
+                {
+                    // jika ada block yang kena hit
+                    if (DestroyBlockAt(target))
+                    {
+                        hitAnything = true;
+                    }
+                }
+            }
+        }
+
+        // kalau beneran mukul block, baru kurangi durability
+        if (hitAnything)
+        {
+            pickManager.ReduceDurability(1);
         }
     }
 
-    public void MineBlocks()
+    // return true = block kena hit
+    bool DestroyBlockAt(Vector2 pos)
     {
-        int r = pickManager.CurrentRadius;
+        Collider2D hit = Physics2D.OverlapCircle(pos, 0.25f);
 
-        switch (r)
+        if (hit == null) return false;
+
+        OreBlock block = hit.GetComponent<OreBlock>();
+        if (block == null) return false;
+
+        var pick = pickManager.Current;
+
+        // cek damage
+        if (pick.damage < block.maxHP)
         {
-            case 1: MineRadius1(); break;
-            case 2: MineRadius2(); break;
-            case 3: MineRadius3(); break;
+            Debug.Log("Pickaxe terlalu lemah untuk ore ini!");
+            return false;
         }
-    }
 
-    void TryBreak(Vector2 offset)
-    {
-        Vector2 targetPos = (Vector2)player.position + offset;
+        // serang block
+        block.Hit(pick.damage);
 
-        Collider2D hit = Physics2D.OverlapPoint(targetPos, blockLayer);
-
-        if (hit != null)
-        {
-            Destroy(hit.gameObject);
-        }
-    }
-
-    // ------------------ RADIUS 1 ------------------
-    void MineRadius1()
-    {
-        TryBreak(new Vector2(0, -blockDistance)); 
-    }
-
-    // ------------------ RADIUS 2 ------------------
-    void MineRadius2()
-    {
-        // row tengah (3 blok)
-        TryBreak(new Vector2(-blockDistance, -blockDistance));
-        TryBreak(new Vector2(0, -blockDistance));
-        TryBreak(new Vector2(blockDistance, -blockDistance));
-
-        // blok bawah
-        TryBreak(new Vector2(0, -blockDistance * 2));
-    }
-
-    // ------------------ RADIUS 3 ------------------
-    void MineRadius3()
-    {
-        // XPX
-        TryBreak(new Vector2(-blockDistance, -blockDistance));
-        TryBreak(new Vector2(blockDistance, -blockDistance));
-
-        // XXX (row 2)
-        TryBreak(new Vector2(-blockDistance, -blockDistance * 2));
-        TryBreak(new Vector2(0, -blockDistance * 2));
-        TryBreak(new Vector2(blockDistance, -blockDistance * 2));
-
-        // XXX (row 3)
-        TryBreak(new Vector2(-blockDistance, -blockDistance * 3));
-        TryBreak(new Vector2(0, -blockDistance * 3));
-        TryBreak(new Vector2(blockDistance, -blockDistance * 3));
+        return true;
     }
 }

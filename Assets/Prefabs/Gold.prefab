@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2029737948005947276}
   - component: {fileID: 8144439517153330067}
   - component: {fileID: 4495994831273615629}
+  - component: {fileID: 260939699116241830}
   m_Layer: 10
   m_Name: Gold
   m_TagString: Obstacle
@@ -130,3 +131,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &260939699116241830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2031673593600844013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a061e9b93f23794580ff135c0a6979a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 90
+  coinReward: 0

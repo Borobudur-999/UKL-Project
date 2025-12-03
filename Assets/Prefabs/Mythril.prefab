@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 110490981076168544}
   - component: {fileID: 3229644084517867106}
   - component: {fileID: 4448418138530220674}
+  - component: {fileID: 3594664894302948866}
   m_Layer: 12
   m_Name: Mythril
   m_TagString: Obstacle
@@ -130,3 +131,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &3594664894302948866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7664966268868656250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a061e9b93f23794580ff135c0a6979a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 150
+  coinReward: 0

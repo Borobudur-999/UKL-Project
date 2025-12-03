@@ -6,6 +6,8 @@ public class PlayerPickaxeManager : MonoBehaviour
     public int currentTier = 0;
     public float currentDurability;
 
+    public GameObject brokenPanel;
+
     public SOPickaxe Current => pickList[currentTier];
 
     // AMBIL radius dari SO
@@ -14,6 +16,12 @@ public class PlayerPickaxeManager : MonoBehaviour
     void Start()
     {
         currentDurability = Current.maxDurability;
+    }
+
+    // 🔥 Tambahkan fungsi ini
+    public bool CanMine()
+    {
+        return currentDurability > 0;
     }
 
     public bool UpgradePickaxe()
@@ -38,5 +46,24 @@ public class PlayerPickaxeManager : MonoBehaviour
 
         Debug.Log("🔥 Pickaxe di-upgrade ke: " + Current.pickName);
         return true;
+    }
+
+    public void ReduceDurability(int amount)
+    {
+        currentDurability -= amount;
+
+        if (currentDurability <= 0)
+        {
+            currentDurability = 0;
+
+            // Munculin UI
+            if (brokenPanel != null)
+                brokenPanel.SetActive(true);
+
+            // Freeze game
+            Time.timeScale = 0f;
+
+            Debug.Log("Pickaxe rusak! Game freeze.");
+        }
     }
 }
