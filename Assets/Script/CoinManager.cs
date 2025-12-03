@@ -3,30 +3,58 @@ using TMPro;
 
 public class CoinManager : MonoBehaviour
 {
+    public static CoinManager instance;
     public int coins;
     public TextMeshProUGUI coinText;
 
-    void Start()
+void Start()
+{
+    // Pastikan UI text di scene baru terhubung
+    coinText = GameObject.FindWithTag("CoinText")?.GetComponent<TextMeshProUGUI>();
+    UpdateUI();
+}
+
+    void Awake()
+{
+    Debug.Log("CoinManager Awake: " + gameObject.name);
+
+    if (instance == null)
     {
-        // Load coin kalau ada
-        coins = PlayerPrefs.GetInt("Coins", 0);
-        UpdateUI();
+        instance = this;
+        DontDestroyOnLoad(gameObject);
     }
+    else
+    {
+        Debug.Log("Duplicate CoinManager found → destroyed");
+        Destroy(gameObject);
+        return;
+    }
+
+    LoadCoins();
+}
+
 
     public void AddCoin(int amount)
     {
         coins += amount;
-        PlayerPrefs.SetInt("Coins", coins);  // langsung save
+        SaveCoins();
         UpdateUI();
     }
 
-    public void ResetCoinOnExit()
+    public void UpdateUI()
     {
-        PlayerPrefs.SetInt("Coins", 0);
+        if (coinText != null)
+            coinText.text = coins.ToString();
     }
 
-    void UpdateUI()
+    void SaveCoins()
     {
-        coinText.text = coins.ToString();
+        PlayerPrefs.SetInt("Coin", coins);
+        PlayerPrefs.Save();
+    }
+
+    void LoadCoins()
+    {
+        coins = PlayerPrefs.GetInt("Coin", 0);
     }
 }
