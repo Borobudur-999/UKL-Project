@@ -33,6 +33,7 @@ public class UIUpgradeController : MonoBehaviour
 
         pickNameText.text = current.pickName;
         pickIcon.sprite = current.sprite;
+        abilityText.text = $"Radius : {current.radius}";
 
         // Jika belum max
         if (manager.currentTier < manager.pickList.Length - 1)
