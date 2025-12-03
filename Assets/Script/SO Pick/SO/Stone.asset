@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickName: Stone Pickaxe
   sprite: {fileID: 0}
-  damage: 2.5
+  damage: 1.5
   radius: 1
   maxDurability: 100
-  upgradeCost: 100
+  upgradeCost: 20
