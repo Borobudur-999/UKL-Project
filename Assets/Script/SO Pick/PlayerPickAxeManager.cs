@@ -8,6 +8,9 @@ public class PlayerPickaxeManager : MonoBehaviour
 
     public SOPickaxe Current => pickList[currentTier];
 
+    // AMBIL radius dari SO
+    public int CurrentRadius => Current.radius;
+
     void Start()
     {
         currentDurability = Current.maxDurability;
@@ -15,7 +18,6 @@ public class PlayerPickaxeManager : MonoBehaviour
 
     public bool UpgradePickaxe()
     {
-        // CEK kalau sudah max
         if (currentTier >= pickList.Length - 1)
         {
             Debug.Log("Pickaxe sudah MAX LEVEL!");
@@ -25,26 +27,16 @@ public class PlayerPickaxeManager : MonoBehaviour
         var nextPick = pickList[currentTier + 1];
         int cost = nextPick.upgradeCost;
 
-        // CEK uang lewat CoinManager
         if (!CoinManager.instance.SpendCoin(cost))
         {
             Debug.Log("💰 Uang tidak cukup untuk upgrade!");
             return false;
         }
 
-        // UPGRADE
         currentTier++;
         currentDurability = Current.maxDurability;
 
         Debug.Log("🔥 Pickaxe di-upgrade ke: " + Current.pickName);
         return true;
-    }
-
-    public void ReduceDurability(int amount)
-    {
-        currentDurability -= amount;
-
-        if (currentDurability < 0)
-            currentDurability = 0;
     }
 }

@@ -15,6 +15,6 @@ MonoBehaviour:
   pickName: Copper Pickaxe
   sprite: {fileID: 0}
   damage: 2
-  radius: 2
+  radius: 1
   maxDurability: 100
   upgradeCost: 40

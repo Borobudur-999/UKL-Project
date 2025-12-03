@@ -9,6 +9,10 @@ public class CollisionHit : MonoBehaviour
     [Header("Player Movement")]
     public float moveSpeed = 5f;  // kecepatan geser kiri/kanan
 
+    [Header("Fungcion")]
+    public MiningSystem miningSystem;   // drag dari inspector
+    public PlayerPickaxeManager pickManager; // drag juga
+
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
