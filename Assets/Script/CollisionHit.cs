@@ -6,11 +6,12 @@ public class CollisionHit : MonoBehaviour
     private Rigidbody2D _rb;
     public CoinManager coinManager;
 
-public MiningSystem miningSystem;
-
-
     [Header("Player Movement")]
     public float moveSpeed = 5f;  // kecepatan geser kiri/kanan
+
+    [Header("Fungcion")]
+    public MiningSystem miningSystem;   // drag dari inspector
+    public PlayerPickaxeManager pickManager; // drag juga
 
     void Start()
     {
@@ -44,24 +45,10 @@ public MiningSystem miningSystem;
             }
         }
 
-       if (collision.gameObject.CompareTag("Obstacle"))
-    {
-        Vector2 blockPos = collision.gameObject.transform.position;
-
-
-        // PANGGIL MINING SYSTEM
-        miningSystem.MineBlock(blockPos);
-
-        return;
-    }
-
-    // bounce
-    _rb.velocity = new Vector2(_rb.velocity.x, 0);
-    _rb.AddForce(Vector2.up * _boundForce, ForceMode2D.Impulse);
-
-    // bounce effect
-    _rb.velocity = new Vector2(_rb.velocity.x, 0);
-    _rb.AddForce(Vector2.up * _boundForce, ForceMode2D.Impulse);
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            Destroy(collision.gameObject);
+        }
 
 
         // bounce effect
