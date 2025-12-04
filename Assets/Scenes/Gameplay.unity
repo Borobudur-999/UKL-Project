@@ -3301,8 +3301,8 @@ MonoBehaviour:
   pickList:
   - {fileID: 11400000, guid: 537887885534ced4ea8bba2b13664799, type: 2}
   - {fileID: 11400000, guid: dd11f0fc152fb2e459f72ab595361426, type: 2}
-  - {fileID: 11400000, guid: 689c14b3099b28545a1e021b8777f64f, type: 2}
   - {fileID: 11400000, guid: febdb2bccd186304db92ededcbafc44a, type: 2}
+  - {fileID: 11400000, guid: 4dce6393e1091c04ea94abffdb827a09, type: 2}
   - {fileID: 11400000, guid: 087f5ea38aaf4d64784e041d775ff7c2, type: 2}
   - {fileID: 11400000, guid: b6164fbdbb411f64096c4b86be4f8728, type: 2}
   currentTier: 0
@@ -3616,8 +3616,8 @@ MonoBehaviour:
   orePrefabs:
   - {fileID: 4001046114908341602, guid: 4fe5d854b64bdc546b5c4d7a7e83c7b7, type: 3}
   - {fileID: 6018285654177211361, guid: abb4fe8cf2315e541a2e8817a8f7c7ac, type: 3}
-  - {fileID: 8162332413416196188, guid: 471902f47f2fe114ab4fe09342a3ffdc, type: 3}
-  - {fileID: 2031673593600844013, guid: 675bba41a80936e47b17731b20b17f98, type: 3}
+  - {fileID: 8162332413416196188, guid: 675bba41a80936e47b17731b20b17f98, type: 3}
+  - {fileID: 2031673593600844013, guid: 32f026183df3239498a292e068f39c5c, type: 3}
   - {fileID: 4741952674251302388, guid: 826b56df0727bba44aaeaaa51cdf6b27, type: 3}
   - {fileID: 7664966268868656250, guid: 6bb4cbf3ba9f70d4d896ce4da5a59ad5, type: 3}
   borderPrefab: {fileID: 3703873644424964236, guid: ee3fdd07867d0204e9d0f2af52229321, type: 3}
@@ -4247,7 +4247,6 @@ Transform:
   m_Children:
   - {fileID: 914360204}
   - {fileID: 1183016064}
-  - {fileID: 914360204}
   m_Father: {fileID: 1137802347}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1551820490
