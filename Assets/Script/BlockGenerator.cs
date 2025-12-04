@@ -84,12 +84,12 @@ public class GridBlockGenerator : MonoBehaviour
     float GetOreChance(float depth)
     {
         // semakin dalam → makin besar chance ore
-        if (depth < 20) return 0.05f;  // 5%
-        if (depth < 50) return 0.10f;  // 10%
-        if (depth < 100) return 0.15f; // 15%
-        if (depth < 200) return 0.20f; // 20%
+        if (depth < 20) return 0.10f;  // 5%
+        if (depth < 50) return 0.11f;  // 10%
+        if (depth < 100) return 0.12f; // 15%
+        if (depth < 250) return 0.13f; // 20%
 
-        return 0.25f; // max 25%
+        return 0.15f; // max 25%
     }
 
     GameObject GetOreByDepth(float depth)
@@ -97,8 +97,9 @@ public class GridBlockGenerator : MonoBehaviour
         if (depth < 20) return orePrefabs[0];       // Copper
         if (depth < 50) return orePrefabs[1];       // Iron
         if (depth < 100) return orePrefabs[2];      // Silver
-        if (depth < 200) return orePrefabs[3];      // Gold
+        if (depth < 150) return orePrefabs[3];      // Gold
+        if (depth < 180) return orePrefabs[4];      // Crystal
 
-        return orePrefabs[4];  // Crystal / Mythril
+        return Random.value < 0.5f ? orePrefabs[4] : orePrefabs[5];
     }
 }

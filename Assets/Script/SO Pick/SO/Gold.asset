@@ -15,6 +15,6 @@ MonoBehaviour:
   pickName: Gold Pickaxe
   sprite: {fileID: 0}
   damage: 90
-  radius: 3
-  maxDurability: 100
-  upgradeCost: 110
+  radius: 1
+  maxDurability: 400
+  upgradeCost: 500

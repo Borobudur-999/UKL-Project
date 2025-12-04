@@ -2,15 +2,9 @@ using UnityEngine;
 
 public class MiningSystem : MonoBehaviour
 {
-    public int radiusLevel = 1;       // 1, 2, 3
-    public float blockDistance = 1f;  // jarak antar blok
-    public LayerMask blockLayer;      // layer ore kamu (6,7,8,...)
-
-    public Transform player;
-    public Vector2 facing = Vector2.down; // player mining ke bawah
     public PlayerPickaxeManager pickManager;
 
-    void Update()
+    public void MineBlock(Vector2 position)
     {
         // Cek durability sebelum mining
         if (!pickManager.CanMine())

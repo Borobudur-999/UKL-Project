@@ -10,7 +10,7 @@ public class StartGameUI : MonoBehaviour
     {
          Time.timeScale = 0f;
         // AWAL GAME:
-        startButton.SetActive(true);  // Start MUNCUL
+        startButton.SetActive(true);   // Start MUNCUL
         shopButton.SetActive(true);   // Shop HILANG
         smeltButton.SetActive(true);  // Smelt HILANG
     }

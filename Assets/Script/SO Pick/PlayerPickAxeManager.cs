@@ -7,15 +7,15 @@ public class PlayerPickaxeManager : MonoBehaviour
     public float currentDurability;
 
     public GameObject brokenPanel;
+private const string TierKey = "PickaxeTier";
+private const string DurabilityKey = "PickaxeDurability";
 
     public SOPickaxe Current => pickList[currentTier];
-
-    // AMBIL radius dari SO
-    public int CurrentRadius => Current.radius;
 
     void Start()
     {
         currentDurability = Current.maxDurability;
+        LoadPickaxe();
     }
 
     // 🔥 Tambahkan fungsi ini
@@ -26,6 +26,7 @@ public class PlayerPickaxeManager : MonoBehaviour
 
     public bool UpgradePickaxe()
     {
+        // CEK kalau sudah max
         if (currentTier >= pickList.Length - 1)
         {
             Debug.Log("Pickaxe sudah MAX LEVEL!");
@@ -35,17 +36,20 @@ public class PlayerPickaxeManager : MonoBehaviour
         var nextPick = pickList[currentTier + 1];
         int cost = nextPick.upgradeCost;
 
+        // CEK uang lewat CoinManager
         if (!CoinManager.instance.SpendCoin(cost))
         {
             Debug.Log("💰 Uang tidak cukup untuk upgrade!");
             return false;
         }
 
+        // UPGRADE
         currentTier++;
         currentDurability = Current.maxDurability;
 
         Debug.Log("🔥 Pickaxe di-upgrade ke: " + Current.pickName);
-        return true;
+        SavePickaxe();
+        return true;    
     }
 
    public void ReduceDurability(int amount)
@@ -65,6 +69,18 @@ public class PlayerPickaxeManager : MonoBehaviour
 
         Debug.Log("Pickaxe rusak! Game freeze.");
     }
+}
+public void SavePickaxe()
+{
+    PlayerPrefs.SetInt(TierKey, currentTier);
+    PlayerPrefs.SetFloat(DurabilityKey, currentDurability);
+    PlayerPrefs.Save();
+}
+
+public void LoadPickaxe()
+{
+    currentTier = PlayerPrefs.GetInt(TierKey, 0);
+    currentDurability = PlayerPrefs.GetFloat(DurabilityKey, Current.maxDurability);
 }
 
 

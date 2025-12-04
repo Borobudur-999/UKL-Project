@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c80448b4cc4bcd844a4b98005f496070, type: 3}
-  m_Name: Stone
+  m_Name: Crystal
   m_EditorClassIdentifier: 
-  pickName: Stone Pickaxe
+  pickName: Crystal Pickaxe
   sprite: {fileID: 0}
-  damage: 12
+  damage: 121
   radius: 1
-  maxDurability: 50
-  upgradeCost: 20
+  maxDurability: 500
+  upgradeCost: 700

@@ -3,18 +3,17 @@ using UnityEngine;
 public class OreBlock : MonoBehaviour
 {
     [Header("Block Stats")]
-    public float maxHP = 20;        // ketahanan ore
+    public float maxHP = 10;
     private float currentHP;
 
     [Header("Reward")]
-    public int coinReward = 1;      // coin yang diberikan
+    public int coinReward = 1;
 
     void Start()
     {
         currentHP = maxHP;
     }
 
-    // Dipanggil oleh MiningSystem ketika pickaxe menyerang block ini
     public bool Hit(float damage)
     {
         currentHP -= damage;
@@ -30,9 +29,7 @@ public class OreBlock : MonoBehaviour
 
     void Die()
     {
-        // kasih coin ketika hancur
         CoinManager.instance.AddCoin(coinReward);
-
         Destroy(gameObject);
     }
 }

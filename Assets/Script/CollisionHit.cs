@@ -6,12 +6,11 @@ public class CollisionHit : MonoBehaviour
     private Rigidbody2D _rb;
     public CoinManager coinManager;
 
+public MiningSystem miningSystem;
+
+
     [Header("Player Movement")]
     public float moveSpeed = 5f;  // kecepatan geser kiri/kanan
-
-    [Header("Fungcion")]
-    public MiningSystem miningSystem;   // drag dari inspector
-    public PlayerPickaxeManager pickManager; // drag juga
 
     void Start()
     {
@@ -30,20 +29,6 @@ public class CollisionHit : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         int layer = collision.gameObject.layer;
-
-        if (coinManager != null)
-        {
-            switch (layer)
-            {
-                case 6: coinManager.AddCoin(1); break;    // Stone
-                case 7: coinManager.AddCoin(3); break;    // Copper
-                case 8: coinManager.AddCoin(7); break;    // Iron
-                case 9: coinManager.AddCoin(15); break;   // Silver
-                case 10: coinManager.AddCoin(30); break;  // Gold
-                case 11: coinManager.AddCoin(80); break;  // Crystal
-                case 12: coinManager.AddCoin(150); break; // Mythril
-            }
-        }
 
        if (collision.gameObject.CompareTag("Obstacle"))
     {
