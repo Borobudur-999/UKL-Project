@@ -7,46 +7,60 @@ public class PlayerPickaxeManager : MonoBehaviour
     public float currentDurability;
 
     public GameObject brokenPanel;
+    private const string TierKey = "PickaxeTier";
+    private const string DurabilityKey = "PickaxeDurability";
 
-    public SOPickaxe Current => pickList[currentTier];
+        public SOPickaxe Current => pickList[currentTier];
 
-    // AMBIL radius dari SO
-    public int CurrentRadius => Current.radius;
+    public UIUpgradeController uiUpgrade;
 
     void Start()
     {
+        LoadPickaxe();
         currentDurability = Current.maxDurability;
+
+        var visual = FindAnyObjectByType<PlayerPickaxeVisual>();
+        if (visual != null) visual.UpdateVisual();
     }
+
 
     // 🔥 Tambahkan fungsi ini
     public bool CanMine()
-    {
-        return currentDurability > 0;
-    }
-
-    public bool UpgradePickaxe()
-    {
-        if (currentTier >= pickList.Length - 1)
         {
-            Debug.Log("Pickaxe sudah MAX LEVEL!");
-            return false;
+            return currentDurability > 0;
         }
 
-        var nextPick = pickList[currentTier + 1];
-        int cost = nextPick.upgradeCost;
-
-        if (!CoinManager.instance.SpendCoin(cost))
+        public bool UpgradePickaxe()
         {
-            Debug.Log("💰 Uang tidak cukup untuk upgrade!");
-            return false;
+            // CEK kalau sudah max
+            if (currentTier >= pickList.Length - 1)
+            {
+                Debug.Log("Pickaxe sudah MAX LEVEL!");
+                return false;
+            }
+
+            var nextPick = pickList[currentTier + 1];
+            int cost = nextPick.upgradeCost;
+
+            // CEK uang lewat CoinManager
+            if (!CoinManager.instance.SpendCoin(cost))
+            {
+                Debug.Log("💰 Uang tidak cukup untuk upgrade!");
+                return false;
+            }
+
+            // UPGRADE
+            currentTier++;
+            currentDurability = Current.maxDurability;
+
+            // UPDATE VISUAL PICKAXE
+            FindAnyObjectByType<PlayerPickaxeVisual>().UpdateVisual();
+
+
+            Debug.Log("🔥 Pickaxe di-upgrade ke: " + Current.pickName);
+            SavePickaxe();
+            return true;    
         }
-
-        currentTier++;
-        currentDurability = Current.maxDurability;
-
-        Debug.Log("🔥 Pickaxe di-upgrade ke: " + Current.pickName);
-        return true;
-    }
 
     public void ReduceDurability(int amount)
     {
@@ -66,4 +80,27 @@ public class PlayerPickaxeManager : MonoBehaviour
             Debug.Log("Pickaxe rusak! Game freeze.");
         }
     }
+
+    public void SavePickaxe()
+    {
+        PlayerPrefs.SetInt(TierKey, currentTier);
+        PlayerPrefs.SetFloat(DurabilityKey, currentDurability);
+        PlayerPrefs.Save();
+    }
+
+    public void LoadPickaxe()
+    {
+        currentTier = PlayerPrefs.GetInt(TierKey, 0);
+        currentDurability = PlayerPrefs.GetFloat(DurabilityKey, Current.maxDurability);
+    }
+
+    public void CheckPickaxeStatus()
+    {
+        if (currentDurability <= 0)
+        {
+            // munculin UI pickaxe hancur
+            UIManager.instance.ShowPickaxeBroken();
+        }
+    }
+
 }

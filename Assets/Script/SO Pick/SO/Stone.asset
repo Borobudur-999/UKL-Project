@@ -16,5 +16,5 @@ MonoBehaviour:
   sprite: {fileID: 0}
   damage: 12
   radius: 1
-  maxDurability: 20
+  maxDurability: 50
   upgradeCost: 20

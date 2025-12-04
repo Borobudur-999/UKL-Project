@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c80448b4cc4bcd844a4b98005f496070, type: 3}
   m_Name: Gold
   m_EditorClassIdentifier: 
-  pickName: Gold Pickaxe
-  sprite: {fileID: 0}
-  damage: 90
-  radius: 3
-  maxDurability: 100
-  upgradeCost: 110
+  pickName: Golden Pickaxe
+  sprite: {fileID: 21300000, guid: d0290a5d56a6ce54d8e08e24103876f9, type: 3}
+  damage: 70
+  radius: 1
+  maxDurability: 300
+  upgradeCost: 400
