@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickName: Copper Pickaxe
   sprite: {fileID: 0}
-  damage: 2
-  radius: 1
-  maxDurability: 100
+  damage: 30
+  radius: 2
+  maxDurability: 40
   upgradeCost: 40

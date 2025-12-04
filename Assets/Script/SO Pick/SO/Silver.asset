@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickName: Silver Pickaxe
   sprite: {fileID: 0}
-  damage: 3
-  radius: 2
-  maxDurability: 300
-  upgradeCost: 60
+  damage: 70
+  radius: 25
+  maxDurability: 80
+  upgradeCost: 80
