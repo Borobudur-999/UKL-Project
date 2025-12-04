@@ -4114,7 +4114,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: febdb2bccd186304db92ededcbafc44a, type: 2}
   currentTier: 0
   currentDurability: 20
-  brokenPanel: {fileID: 0}
+  brokenPanel: {fileID: 1346146315}
 --- !u!1 &1242456428
 GameObject:
   m_ObjectHideFlags: 0
