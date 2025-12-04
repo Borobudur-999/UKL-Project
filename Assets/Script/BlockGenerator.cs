@@ -19,6 +19,10 @@ public class GridBlockGenerator : MonoBehaviour
 
     private float nextSpawnY;
 
+[Header("Special Blocks")]
+public GameObject tntPrefab;
+public float tntChance = 0.03f; // 3% chance
+
     void Start()
     {
         nextSpawnY = player.position.y - yStep;
@@ -34,35 +38,46 @@ public class GridBlockGenerator : MonoBehaviour
     }
 
     void SpawnBatch(int rows)
+{
+    float stepX = (xMax - xMin) / (blocksPerRow - 1);
+
+    for (int r = 0; r < rows; r++)
     {
-        float stepX = (xMax - xMin) / (blocksPerRow - 1);
-
-        for (int r = 0; r < rows; r++)
+        for (int i = 0; i < blocksPerRow; i++)
         {
-            // Spawn blok per baris
-            for (int i = 0; i < blocksPerRow; i++)
-            {
-                Vector3 spawnPos = new Vector3(
-                    xMin + i * stepX + Random.Range(-xRandomOffset, xRandomOffset),
-                    nextSpawnY,
-                    0
-                );
+            Vector3 spawnPos = new Vector3(
+                xMin + i * stepX + Random.Range(-xRandomOffset, xRandomOffset),
+                nextSpawnY,
+                0
+            );
 
-                GameObject blockToSpawn = ChooseBlock(nextSpawnY);
-                Instantiate(blockToSpawn, spawnPos, Quaternion.identity);
+            float depth = -nextSpawnY;
+
+            // 🎯 PILIH BLOCK BIASA (STONE / ORE)
+            GameObject blockToSpawn = ChooseBlock(nextSpawnY);
+
+            // 🔥 OVERRIDE menjadi TNT jika kondisi terpenuhi
+            if (depth > 30f && Random.value < tntChance)
+            {
+                blockToSpawn = tntPrefab;
             }
 
-            // ⭐ Spawn border kiri
-            Vector3 leftBorderPos = new Vector3(xMin - 1f, nextSpawnY, 0);
-            Instantiate(borderPrefab, leftBorderPos, Quaternion.identity);
-
-            // ⭐ Spawn border kanan
-            Vector3 rightBorderPos = new Vector3(xMax + 1f, nextSpawnY, 0);
-            Instantiate(borderPrefab, rightBorderPos, Quaternion.identity);
-
-            nextSpawnY -= yStep;
+            // ⭐ HANYA SATU INSTANTIATE DI SINI!
+            Instantiate(blockToSpawn, spawnPos, Quaternion.identity);
         }
+
+        // Border kiri
+        Vector3 leftBorderPos = new Vector3(xMin - 1f, nextSpawnY, 0);
+        Instantiate(borderPrefab, leftBorderPos, Quaternion.identity);
+
+        // Border kanan
+        Vector3 rightBorderPos = new Vector3(xMax + 1f, nextSpawnY, 0);
+        Instantiate(borderPrefab, rightBorderPos, Quaternion.identity);
+
+        nextSpawnY -= yStep;
     }
+}
+
 
 
 

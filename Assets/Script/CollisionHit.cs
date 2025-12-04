@@ -40,6 +40,17 @@ public MiningSystem miningSystem;
 
         return;
     }
+    
+    if (collision.gameObject.CompareTag("TNT"))
+{
+    PlayerPickaxeManager pick = FindAnyObjectByType<PlayerPickaxeManager>();
+    pick.currentDurability = 0;
+    pick.CheckPickaxeStatus();
+
+    Destroy(collision.gameObject);
+    return;
+}
+
 
     // bounce
     _rb.velocity = new Vector2(_rb.velocity.x, 0);

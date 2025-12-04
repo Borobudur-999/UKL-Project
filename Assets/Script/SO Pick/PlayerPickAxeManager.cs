@@ -12,11 +12,17 @@ private const string DurabilityKey = "PickaxeDurability";
 
     public SOPickaxe Current => pickList[currentTier];
 
-    void Start()
-    {
-        currentDurability = Current.maxDurability;
-        LoadPickaxe();
-    }
+public UIUpgradeController uiUpgrade;
+
+ void Start()
+{
+    LoadPickaxe();
+    currentDurability = Current.maxDurability;
+
+    var visual = FindAnyObjectByType<PlayerPickaxeVisual>();
+    if (visual != null) visual.UpdateVisual();
+}
+
 
     // 🔥 Tambahkan fungsi ini
     public bool CanMine()
@@ -44,8 +50,12 @@ private const string DurabilityKey = "PickaxeDurability";
         }
 
         // UPGRADE
-        currentTier++;
-        currentDurability = Current.maxDurability;
+    currentTier++;
+currentDurability = Current.maxDurability;
+
+// UPDATE VISUAL PICKAXE
+FindAnyObjectByType<PlayerPickaxeVisual>().UpdateVisual();
+
 
         Debug.Log("🔥 Pickaxe di-upgrade ke: " + Current.pickName);
         SavePickaxe();
@@ -83,5 +93,13 @@ public void LoadPickaxe()
     currentDurability = PlayerPrefs.GetFloat(DurabilityKey, Current.maxDurability);
 }
 
+public void CheckPickaxeStatus()
+{
+    if (currentDurability <= 0)
+    {
+        // munculin UI pickaxe hancur
+        UIManager.instance.ShowPickaxeBroken();
+    }
+}
 
 }
