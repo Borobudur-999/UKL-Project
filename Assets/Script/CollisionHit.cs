@@ -6,9 +6,6 @@ public class CollisionHit : MonoBehaviour
     private Rigidbody2D _rb;
     public CoinManager coinManager;
 
-public MiningSystem miningSystem;
-
-
     [Header("Player Movement")]
     public float moveSpeed = 5f;  // kecepatan geser kiri/kanan
 
