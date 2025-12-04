@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ButtonActiveMenu : MonoBehaviour
 {
-    public void OpenCredit()
+    public string scene;
+    public void Gameplay()
     {
-        
+        SceneManager.LoadScene(scene);
     }
 }
