@@ -17,4 +17,4 @@ MonoBehaviour:
   damage: 160
   radius: 1
   maxDurability: 600
-  upgradeCost: 800
+  upgradeCost: 3000
